@@ -1,0 +1,50 @@
+{
+  "name": "sodium-cli",
+  "version": "1.0.0",
+  "description": "A simple CLI frontend for common sodium-native actions",
+  "main": "index.js",
+  "bin": {
+    "verify": "./bin/verify.js",
+    "keygen": "./bin/keygen.js",
+    "sign": "./bin/sign.js"
+  },
+  "scripts": {
+    "test": "run-s test:*",
+    "test:lint": "standard",
+    "test:tape": "tape 'test.js' | tap-format-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcomnes/sodium-cli.git"
+  },
+  "keywords": [
+    "sodium",
+    "sodium-native",
+    "cli",
+    "crypto",
+    "pki"
+  ],
+  "author": "Bret Comnes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bcomnes/sodium-cli/issues"
+  },
+  "homepage": "https://github.com/bcomnes/sodium-cli#readme",
+  "devDependencies": {
+    "@tap-format/spec": "^0.2.0",
+    "dependency-check": "^3.3.0",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^2.6.3",
+    "standard": "^12.0.1",
+    "tape": "^4.10.1",
+    "temporary-directory": "^1.0.2"
+  },
+  "dependencies": {
+    "bl": "^3.0.0",
+    "cliclopts": "^1.1.1",
+    "minimist": "^1.2.0",
+    "pump": "^3.0.0",
+    "sodium-native": "^2.3.0"
+  }
+}
