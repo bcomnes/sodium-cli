@@ -5,6 +5,10 @@ const path = require('path')
 const parallel = require('run-parallel')
 const fs = require('fs')
 
+function getUnixPerms (mode) {
+  return '0' + (mode & parseInt('777', 8)).toString(8)
+}
+
 test('create a keypair and save it to a destination', t => {
   tmp((err, dir, cleanup) => {
     t.error(err, 'tmp dir created')
@@ -24,6 +28,11 @@ test('create a keypair and save it to a destination', t => {
 
         t.true(sodiumFrontend.validatePublic(publicHex), 'public key validates')
         t.true(sodiumFrontend.validateSecret(secretHex), 'secret key validates')
+
+        const secretStat = fs.statSync(secretPath)
+        const publicStat = fs.statSync(publicPath)
+        t.equal(getUnixPerms(publicStat.mode), '0600', 'public key is mode 0600')
+        t.equal(getUnixPerms(secretStat.mode), '0600', 'secret key is mode 0600')
 
         cleanup(err => {
           t.error(err, 'tmp dir cleaned up')
