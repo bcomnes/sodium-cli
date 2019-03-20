@@ -85,7 +85,7 @@ function readSecret (keyPath, cb) {
   readKeyFile(keyPath, (err, secretKeyHex) => {
     if (err) return cb(err)
     if (!validateSecret(secretKeyHex)) {
-      return cb(new Error('Secrete key appears invalid'))
+      return cb(new Error('Secret key appears invalid'))
     }
     return cb(null, Buffer.from(secretKeyHex, 'hex'))
   })

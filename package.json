@@ -11,7 +11,8 @@
   "scripts": {
     "test": "run-s test:*",
     "test:lint": "standard",
-    "test:tape": "tape 'test.js' | tap-format-spec"
+    "test:tape": "tape 'test.js' | tap-format-spec",
+    "test:deps": "dependency-check package.json --missing --unused --no-dev"
   },
   "repository": {
     "type": "git",
@@ -41,10 +42,9 @@
     "temporary-directory": "^1.0.2"
   },
   "dependencies": {
-    "bl": "^3.0.0",
     "cliclopts": "^1.1.1",
     "minimist": "^1.2.0",
-    "pump": "^3.0.0",
+    "run-parallel": "^1.1.9",
     "sodium-native": "^2.3.0"
   }
 }

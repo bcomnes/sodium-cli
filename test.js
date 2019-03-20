@@ -34,7 +34,7 @@ test('create a keypair and save it to a destination', t => {
   })
 })
 
-test('sign a file with a private key', t => {
+test('sign a file with a secret key', t => {
   tmp((err, dir, cleanup) => {
     t.error(err, 'tmp dir created')
     const keyPair = {
