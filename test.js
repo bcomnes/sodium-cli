@@ -1,9 +1,10 @@
-const test = require('tape')
 const tmp = require('temporary-directory')
-const sodiumFrontend = require('.')
-const path = require('path')
 const parallel = require('run-parallel')
+const test = require('tape')
+const path = require('path')
 const fs = require('fs')
+
+const sodiumFrontend = require('.')
 
 function getUnixPerms (mode) {
   return '0' + (mode & parseInt('777', 8)).toString(8)

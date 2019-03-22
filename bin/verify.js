@@ -32,16 +32,16 @@ const argv = minimist(process.argv.slice(2), opts.options())
 const hexSignature = argv._[0]
 const argFilePath = argv._[1]
 
+if (argv.version) {
+  console.log(pkg.version)
+  process.exit()
+}
+
 if (argv.help || !argFilePath || !hexSignature) {
   console.log(`${pkg.name} verify: Verify a file with a libsodium crypto_sign public key and signature\n`)
   console.log(`Usage: verify [signature] [file] {options}`)
   opts.print()
-  process.exit()
-}
-
-if (argv.version) {
-  console.log(pkg.version)
-  process.exit()
+  process.exit(argv.help ? 0 : 1)
 }
 
 const publicPath = path.resolve(process.cwd(), argv.public)
@@ -55,7 +55,9 @@ sodiumFrontend.verify(hexSignature, publicPath, filePath, (err, valid) => {
 
   if (valid) {
     console.log(`Valid signature for ${argFilePath} by ${argv.public}`)
+    process.exit()
   } else {
     console.error(`INVALID SIGNATURE: signature for ${argFilePath} is not valid for ${argv.public}`)
+    process.exit(1)
   }
 })

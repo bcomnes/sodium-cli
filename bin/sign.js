@@ -31,16 +31,16 @@ const argv = minimist(process.argv.slice(2), opts.options())
 
 const argPath = argv._[0]
 
+if (argv.version) {
+  console.log(pkg.version)
+  process.exit()
+}
+
 if (argv.help || !argPath) {
   console.log(`${pkg.name} sign: Sign a file with a libsodium crypto_sign secret key and print to stdout\n`)
   console.log(`Usage: sign [file] {options}`)
   opts.print()
-  process.exit()
-}
-
-if (argv.version) {
-  console.log(pkg.version)
-  process.exit()
+  process.exit(argv.help ? 0 : 1)
 }
 
 const secretPath = path.resolve(process.cwd(), argv.secret)

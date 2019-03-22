@@ -36,15 +36,15 @@ const allowedOptions = [
 const opts = cliOpts(allowedOptions)
 const argv = minimist(process.argv.slice(2), opts.options())
 
+if (argv.version) {
+  console.log(pkg.version)
+  process.exit()
+}
+
 if (argv.help) {
   console.log(`${pkg.name} keygen: Generate a libsodium crypto_sign keypair and save it to disk\n`)
   console.log(`Usage: keygen {options}`)
   opts.print()
-  process.exit()
-}
-
-if (argv.version) {
-  console.log(pkg.version)
   process.exit()
 }
 
@@ -53,15 +53,21 @@ const publicKeyPath = path.join(writePath, 'key.public')
 const secretPath = path.join(writePath, 'key.secret')
 
 if (!argv.force) {
+  let foundKey = false
   if (fileExistsSync(publicKeyPath)) {
     console.error(`ERROR: key.public already exists in ${writePath}`)
+    foundKey = true
   }
 
   if (fileExistsSync(secretPath)) {
     console.error(`ERROR: key.secret already exists in ${writePath}`)
+    foundKey = true
   }
-  console.error('Use --force to overwrite')
-  process.exit(1)
+
+  if (foundKey) {
+    console.error('Use --force to overwrite')
+    process.exit(1)
+  }
 }
 
 sodiumFrontend.keygen(writePath, (err) => {
