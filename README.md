@@ -42,7 +42,7 @@ sodiumCLI.keygen(cwd, err => {
     if (err) throw err
     sodiumCLI.verify(sig, './public.key', './some-file', (err, valid) => {
       if (err) throw err
-      console.log('Signature is valid ' + valid)
+      console.log(valid ? 'Signature is valid' : 'Signature is invalid' )
     })
   })
 })
